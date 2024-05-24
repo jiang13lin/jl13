@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-6</title>
+</head>
+
+<body>
+    <div id="box" style="width: 700px;height: 700px;"></div>
+    <script src="../js/echarts.js"></script>
+    <script>
+        var myChart = echarts.init(document.getElementById("box"));
+        var option = {//指定图表的配置项和数据
+            color: ['LimeGreen', 'DarkGreen', 'red', 'blue', 'purple'],
+            backgroundColor: 'rgba(128,128,128,0.1)',//rgba设置透明度为0.1
+            title: { text: '某学院2020年专业招生情况汇总表', left: 70, top: 9 },
+            tooltip: { tooltip: { show: true }, },
+            legend: { data: ['2019年招生'], left: 422, top: 8 },
+            xAxis: {
+                data: ["大数据", "云计算", "ERP", "人工智能", "软件开发", "移动开发", "网络技术"],
+            },
+            yAxis: {}, //配置y轴坐标系
+            series: [{ //配置数据系列
+                name: '招生人数:', type: 'bar', barwidth: 55,//设置柱状图中每个柱子的宽度
+                data: [350, 200, 66, 210, 466, 200, 135]
+            }]
+        };
+        myChart.setOption(option);//使用刚指定的配置项和数据显示图表
+        //回调函数处理鼠标单击事件并跳转到相应的百度搜索页面
+        myChart.on('click', function (params) {
+            alert("鼠标单击事件，您刚才单击了：" + params.name);
+            window.open('https://www.baidu.com/s?wd=' + encodeURIComponent(params.name));
+        });
+        window.addEventListener("resize", function () {
+            myChart.resize(); //使图表自适应窗口的大小
+        })
+        myChart.setOption(option);
+    </script>
+
+</body>
+
+</html>
